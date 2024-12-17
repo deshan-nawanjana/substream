@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- meta tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- preload : fonts -->
+  <link rel="preload" href="./assets/fonts/Ubuntu/Ubuntu-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="./assets/fonts/Ubuntu/Ubuntu-Medium.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="./assets/fonts/Ubuntu/Ubuntu-Bold.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="./assets/fonts/fonts.css">
+  <!-- style -->
+  <link rel="stylesheet" href="./index.css">
+  <!-- script -->
+  <script src="./index.js" type="module" defer></script>
+  <!-- page title -->
+  <title>SubStream</title>
+</head>
+<body id="app" data-tab="upload">
+  <!-- unsupported -->
+  <div class="error">
+    SubStream is not available on this page.
+  </div>
+  <!-- tabs -->
+  <div class="tabs">
+    <div class="tab upload">
+      Upload
+    </div>
+    <div class="tab timing">
+      Timing
+    </div>
+    <div class="tab settings">
+      Settings
+    </div>
+  </div>
+  <!-- sections -->
+  <div class="sections">
+    <!-- upload -->
+    <div class="section upload" data-name="none">
+      <div class="upload-preview">
+        <div class="upload-preview-time"></div>
+        <div class="upload-preview-name"></div>
+        <div class="upload-preview-stop">
+          <button id="stop">Remove</button>
+        </div>
+      </div>
+      <div class="upload-tray">
+        <div class="upload-tray-text">
+          Upload your subtitle file here
+        </div>
+      </div>
+    </div>
+    <!-- timing -->
+    <div class="section timing">
+      <div class="timing-sync">
+        <div class="timing-sync-label">
+          <b>Synchronizing Amount</b>
+          (+ / - Seconds)
+        </div>
+        <input class="timing-sync-input" type="text" id="sync">
+      </div>
+      <div class="timing-lines"></div>
+    </div>
+    <!-- settings -->
+    <div class="section settings">
+      <fieldset id="settings" data-position="end-center" data-weight="normal">
+        <!-- position -->
+        <div class="settings-section">
+          <div class="settings-section-title">
+            Position
+          </div>
+          <div class="settings-section-content position">
+            <div class="position-box">
+              <div class="position-row">
+                <input type="button" id="position" value="start-start">
+                <input type="button" id="position" value="start-center">
+                <input type="button" id="position" value="start-end">
+              </div>
+              <div class="position-row">
+                <input type="button" id="position" value="center-start">
+                <input type="button" id="position" value="center-center">
+                <input type="button" id="position" value="center-end">
+              </div>
+              <div class="position-row">
+                <input type="button" id="position" value="end-start">
+                <input type="button" id="position" value="end-center">
+                <input type="button" id="position" value="end-end">
+              </div>
+            </div>
+            <div class="spacing-box">
+              <label class="spacing-x">
+                Vertical Spacing
+                <input id="spacing-x" type="range" min="0" max="300">
+              </label>
+              <label class="spacing-y">
+                Horizontal Spacing
+                <input id="spacing-y" type="range" min="0" max="300">
+              </label>
+            </div>
+          </div>
+        </div>
+        <!-- font size -->
+        <div class="settings-section">
+          <div class="settings-section-title">
+            Font Size
+          </div>
+          <label class="font-size">
+            <input id="font-size" type="range" min="10" max="80">
+          </label>
+        </div>
+        <!-- font weight -->
+        <div class="settings-section">
+          <div class="settings-section-title">
+            Font Weight
+          </div>
+          <div class="font-weight-box">
+            <input type="button" id="font-weight" value="Lighter">
+            <input type="button" id="font-weight" value="Normal">
+            <input type="button" id="font-weight" value="Bolder">
+          </div>
+        </div>
+        <!-- background opacity -->
+        <div class="settings-section">
+          <div class="settings-section-title">
+            background Opacity
+          </div>
+          <label class="background-opacity">
+            <input id="background-opacity" type="range" min="0" max="100">
+          </label>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="footer-title">
+      Developed by Deshan Nawanjana
+    </div>
+    <div class="footer-links">
+      <a href="https://deshan.lk" target="_blank">
+        Deshan.lk
+      </a>
+      |
+      <a href="https://github.com/deshan-nawanjana" target="_blank">
+        GitHub
+      </a>
+      |
+      <a href="https://www.facebook.com/mr.dnjs" target="_blank">
+        Facebook
+      </a>
+      |
+      <a href="https://www.youtube.com/channel/UCfqOF8_UTa6LhaujoFETqlQ" target="_blank">
+        YouTube
+      </a>
+      |
+      <a href="https://www.linkedin.com/in/deshan-nawanjana/" target="_blank">
+        LinkedIn
+      </a>
+      |
+      <a href="mailto:deshan.uok@gmail.com" target="_blank">
+        Gmail
+      </a>
+    </div>
+  </div>
+</body>
+</html>
