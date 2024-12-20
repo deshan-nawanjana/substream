@@ -80,6 +80,16 @@
   color: #ff5b71;
 }
 
+.tab.timing,
+.tab.settings {
+  pointer-events: none;
+}
+
+body[data-ready] .tab.timing,
+body[data-ready] .tab.settings {
+  pointer-events: all;
+}
+
 .sections {
   flex-grow: 1;
   padding: 10px;
@@ -103,11 +113,9 @@
   border: 2px dashed #0003;
   height: 100px;
   border-radius: 10px;
-  background-image: url(./assets/images/upload.svg);
   background-position: center calc(50% - 15px);
   background-repeat: no-repeat;
   background-size: 45px auto;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -115,14 +123,30 @@
   transition: background 0.1s;
 }
 
-.upload-tray:hover {
+.upload-tray.ready {
+  cursor: pointer;
+  background-image: url(./assets/images/upload.svg);
+}
+
+.upload-tray.ready:hover {
   background-color: #0000000A;
 }
 
 .upload-tray-text {
   font-weight: 700;
   color: #0005;
+}
+
+.upload-tray-text::before {
+  content: "No videos found on this page";
+}
+
+.upload-tray.ready .upload-tray-text {
   padding-top: 50px;
+}
+
+.upload-tray.ready .upload-tray-text::before {
+  content: "Upload your subtitle file here";
 }
 
 .upload[data-name="none"] .upload-preview {

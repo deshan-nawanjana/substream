@@ -1,5 +1,8 @@
+// create unique id from content page
+const id = crypto.randomUUID()
+
 function sendMessage(type, data) {
-  chrome.runtime.sendMessage({ type, data }).catch(() => { })
+  chrome.runtime.sendMessage({ id, type, data }).catch(() => { })
 }
 
 function toSeconds(time) {
@@ -92,6 +95,8 @@ const time = {
 
 // display element data
 const overlay = {
+  // data version
+  version: "1.1",
   // outer element
   outer: {
     element: document.createElement("div"),
@@ -261,8 +266,29 @@ chrome.runtime.onMessage.addListener(async (message, _s, callback) => {
   // get message data
   const action = message.action
   const payload = message.payload
+  // check info action with id
+  if (action !== "info" && message.id !== id) { return }
   // update target element
   onElement()
+  // check info action
+  if (action === "info") {
+    // get child iframe from document
+    const iframes = document.querySelectorAll("iframe")
+    // send current frame details
+    sendMessage("info", {
+      target: data.target,
+      duration: data.target ? data.target.duration : 0
+    })
+    // for reach iframe
+    iframes.forEach((iframe) => {
+      // send message to iframe content window
+      if (iframe.contentWindow) {
+        iframe.contentWindow.postMessage(message, "*")
+      }
+    })
+    // callback as success
+    return callback(true)
+  }
   // switch action
   if (action === "update") {
     // update name

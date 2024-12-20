@@ -26,7 +26,12 @@ const exceptions = [
 const sendMessage = (action, payload = null) => {
   return new Promise(resolve => {
     // create message
-    const message = { action, payload }
+    const message = {
+      id: states.iframe ? states.iframe.id : null,
+      action, payload
+    }
+    // return any non info message when no iframe found
+    if (action !== "info" && !states.iframe) { return }
     // query active current tabs
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       // return if no tsbs
@@ -49,7 +54,12 @@ const sendMessage = (action, payload = null) => {
 }
 
 // app state object
-const states = { tab: "upload", lines: [], time: null }
+const states = {
+  tab: "upload",
+  lines: [],
+  time: null,
+  iframe: null
+}
 
 // message callback handler
 chrome.runtime.onMessage.addListener(message => {
@@ -57,6 +67,39 @@ chrome.runtime.onMessage.addListener(message => {
   if (!message) { return }
   // get message type
   const type = message.type
+  // check info message
+  if (type === "info") {
+    // get iframe id
+    const id = message.id
+    // get target data
+    const data = message.data
+    // check target element from iframe
+    if (states.iframe === null && data.target) {
+      // check target duration
+      if (data.duration > 60) {
+        // set ready state
+        qs(".upload-tray").classList.add("ready")
+        document.body.setAttribute("data-ready", "true")
+        // store as target iframe
+        states.iframe = { id, duration: data.duration }
+        // get and parse current settings
+        const settings = JSON.parse(localStorage.getItem("settings") || "null")
+        // check for current settings
+        if (settings && settings.version === "1.1") {
+          // send current settings
+          sendMessage("update", {
+            outer: settings.outer.style,
+            inner: settings.inner.style
+          }).then(onInit)
+        } else {
+          // request page data
+          sendMessage("data").then(onInit)
+        }
+      }
+    }
+    // return as info message
+    return
+  }
   // get message data
   const data = message.data.data
   const time = message.data.time
@@ -288,17 +331,16 @@ const onInit = state => {
   }
 }
 
-// get and parse current settings
-const settings = JSON.parse(localStorage.getItem("settings") || "null")
-
-// check for current settings
-if (settings) {
-  // send current settings
-  sendMessage("update", {
-    outer: settings.outer.style,
-    inner: settings.inner.style
-  }).then(onInit)
-} else {
-  // request page data
-  sendMessage("data").then(onInit)
+// initial info check
+const checkLoop = () => {
+  // send message
+  sendMessage("info").then(() => {
+    setTimeout(() => {
+      // clear interval on video found
+      if (!states.iframe) { checkLoop() }
+    }, 100)
+  })
 }
+
+// start check loop
+checkLoop()
