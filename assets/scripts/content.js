@@ -129,9 +129,10 @@ const overlay = {
       // avoid inheritance
       all: "initial",
       // captions
-      fontSize: 27,
+      fontSize: 40,
       fontWeight: "normal",
       textAlign: "center",
+      textShadow: "0px 0px 10px #000",
       // background
       backgroundColor: "rgba(0, 0, 0, 0.0)",
       // default
@@ -204,7 +205,7 @@ const update = () => {
     // get parent element
     const parent = video.parentElement
     // check overlay on parent
-    if (!parent.querySelector("#" + outer.id)) {
+    if (parent && !parent.querySelector("#" + outer.id)) {
       parent.appendChild(outer)
     }
   } else {

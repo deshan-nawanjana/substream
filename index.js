@@ -128,6 +128,9 @@ chrome.runtime.onMessage.addListener(message => {
       qs("#font-size").value = innerStyle.fontSize
       // font weight
       qs("[data-weight]").setAttribute("data-weight", innerStyle.fontWeight)
+      // text shadow
+      qs("#text-shadow").value =
+        parseInt(innerStyle.textShadow.split(" ")[2])
       // background opacity
       qs("#background-opacity").value =
         innerStyle.backgroundColor.split(/[,)]/g)[3] * 100
@@ -261,6 +264,13 @@ const onSettings = event => {
     qs("[data-weight]").setAttribute("data-weight", value)
     // update font weight
     sendMessage("update", { inner: { fontWeight: value } })
+  } else if (key === "text-shadow") {
+    // update text shadow
+    sendMessage("update", {
+      inner: {
+        textShadow: `0px 0px ${value}px #000`
+      }
+    })
   } else if (key === "background-opacity") {
     // update background opacity
     sendMessage("update", {
