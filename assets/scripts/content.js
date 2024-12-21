@@ -1,6 +1,11 @@
 // create unique id from content page
-const id = crypto.randomUUID()
+const id = typeof crypto === "object" && typeof crypto.randomUUID === "function"
+  // use crypto random uuid
+  ? `${performance.now()}-${crypto.randomUUID()}-${Math.random()}`
+  // create random uuid by time stamps
+  : `${performance.now()}-${Math.random()}-${Date.now() * Math.random()}`
 
+// method to send message to default popup
 function sendMessage(type, data) {
   chrome.runtime.sendMessage({ id, type, data }).catch(() => { })
 }
