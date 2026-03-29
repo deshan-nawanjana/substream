@@ -331,14 +331,9 @@ qs("#sync").addEventListener("input", event => {
 // stop event listener
 qs("#stop").addEventListener("click", onStop)
 
-const onInit = state => {
-  // check init state
-  if (state) {
-    // request time frequently
-    setInterval(() => sendMessage("time"), 100)
-  } else {
-    document.body.setAttribute("data-unsupported", "true")
-  }
+const onInit = () => {
+  // request time frequently
+  setInterval(() => sendMessage("time"), 100)
 }
 
 // initial info check
