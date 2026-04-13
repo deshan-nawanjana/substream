@@ -56,6 +56,36 @@ function parseLines(text) {
   return output
 }
 
+function toVTTTime(seconds) {
+  // get time units
+  const hrs = Math.floor(seconds / 3600)
+  const mins = Math.floor((seconds % 3600) / 60)
+  const secs = Math.floor(seconds % 60)
+  const ms = Math.round((seconds % 1) * 1000)
+  // join into time string
+  return [
+    hrs.toString().padStart(2, '0'),
+    mins.toString().padStart(2, '0'),
+    secs.toString().padStart(2, '0')
+  ].join(':') + '.' + ms.toString().padStart(3, '0')
+}
+
+function createVTT(lines) {
+  // map into vtt lines
+  const text = "WEBVTT\n\n" + lines.map(line => {
+    // stringify times
+    const from = toVTTTime(line.from)
+    const to = toVTTTime(line.to)
+    // create text lines
+    const text = line.text.replace(/<br\s*\/?>/gi, '\n')
+    // return subtitle segment
+    return `${from} --> ${to}\n${text}`
+  }).join("\n\n")
+  // create caption blob
+  const blob = new Blob([text], { type: "text/vtt" })
+  // return blob url
+  return URL.createObjectURL(blob)
+}
 
 const applyStyle = (element, current, history = null) => {
   // get current keys
@@ -267,6 +297,37 @@ const onUpload = () => {
     input.click()
   })
 }
+
+document.addEventListener("fullscreenchange", () => {
+  // get target element
+  const element = document.fullscreenElement
+  // check if video element is fullscreen
+  if (element && element === data.target) {
+    // create track element
+    const track = document.createElement("track")
+    // configure attributes
+    track.kind = "subtitles"
+    track.label = "SubStream"
+    track.default = true
+    track.className = "-ext-sub-stream-track"
+    // create caption blob
+    track.src = createVTT(data.lines)
+    // append on video element
+    data.target.appendChild(track)
+  } else {
+    // get all video tracks
+    const tracks = document.querySelectorAll(".-ext-sub-stream-track")
+    // for each track element
+    for (let i = 0; i < tracks.length; i++) {
+      // get current track
+      const track = tracks[i]
+      // revoke object url
+      URL.revokeObjectURL(track.src)
+      // remove track element
+      track.remove()
+    }
+  }
+})
 
 chrome.runtime.onMessage.addListener(async (message, _s, callback) => {
   // get message data
