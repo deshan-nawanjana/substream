@@ -131,7 +131,7 @@ const time = {
 // display element data
 const overlay = {
   // data version
-  version: "1.1",
+  version: "1.2",
   // outer element
   outer: {
     element: document.createElement("div"),
@@ -165,6 +165,7 @@ const overlay = {
       all: "initial",
       // captions
       fontSize: 40,
+      color: "#ffffff",
       fontWeight: "normal",
       textAlign: "center",
       textShadow: "0px 0px 10px #000",
@@ -172,7 +173,6 @@ const overlay = {
       backgroundColor: "rgba(0, 0, 0, 0.0)",
       // default
       pointerEvents: "none",
-      color: "rgba(255, 255, 255, 1)",
       borderRadius: 10,
       padding: "8px 12px",
       fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"

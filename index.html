@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <!-- meta tags -->
   <meta charset="UTF-8">
@@ -16,6 +17,7 @@
   <!-- page title -->
   <title>SubStream</title>
 </head>
+
 <body id="app" data-tab="upload">
   <!-- unsupported -->
   <div class="error">
@@ -97,6 +99,28 @@
             </div>
           </div>
         </div>
+        <div class="settings-sections-row">
+          <!-- font weight -->
+          <div class="settings-section font-weight">
+            <div class="settings-section-title">
+              Font Weight
+            </div>
+            <div class="font-weight-box">
+              <input type="button" id="font-weight" value="Lighter">
+              <input type="button" id="font-weight" value="Normal">
+              <input type="button" id="font-weight" value="Bolder">
+            </div>
+          </div>
+          <!-- text color -->
+          <div class="settings-section text-color">
+            <div class="settings-section-title">
+              Text Color
+            </div>
+            <div class="text-color-box">
+              <input type="color" id="text-color" value="#ffffff">
+            </div>
+          </div>
+        </div>
         <!-- font size -->
         <div class="settings-section">
           <div class="settings-section-title">
@@ -105,17 +129,6 @@
           <label class="font-size">
             <input id="font-size" type="range" min="10" max="80">
           </label>
-        </div>
-        <!-- font weight -->
-        <div class="settings-section">
-          <div class="settings-section-title">
-            Font Weight
-          </div>
-          <div class="font-weight-box">
-            <input type="button" id="font-weight" value="Lighter">
-            <input type="button" id="font-weight" value="Normal">
-            <input type="button" id="font-weight" value="Bolder">
-          </div>
         </div>
         <!-- text-shadow -->
         <div class="settings-section">
@@ -169,4 +182,5 @@
     </div>
   </div>
 </body>
+
 </html>

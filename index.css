@@ -215,6 +215,44 @@ body[data-ready] .tab.settings {
   border: none;
 }
 
+.settings-sections-row {
+  display: flex;
+  gap: 15px;
+}
+
+.font-weight {
+  flex-grow: 1;
+}
+
+.text-color {
+  flex-shrink: 0;
+  width: 120px;
+}
+
+.text-color input {
+  border-radius: 6px;
+  border: 2px solid #181818;
+  -webkit-appearance: none;
+  appearance: none;
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+  width: 120px;
+  height: 30px;
+}
+
+.text-color input::-webkit-color-swatch {
+  border: none;
+}
+
+.text-color input::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.text-color input::-moz-color-swatch {
+  border: none;
+}
+
 .settings-section {
   display: flex;
   flex-direction: column;

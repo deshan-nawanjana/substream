@@ -85,7 +85,7 @@ chrome.runtime.onMessage.addListener(message => {
         // get and parse current settings
         const settings = JSON.parse(localStorage.getItem("settings") || "null")
         // check for current settings
-        if (settings && settings.version === "1.1") {
+        if (settings && settings.version === "1.2") {
           // send current settings
           sendMessage("update", {
             outer: settings.outer.style,
@@ -126,6 +126,8 @@ chrome.runtime.onMessage.addListener(message => {
       )
       // font size
       qs("#font-size").value = innerStyle.fontSize
+      // text color
+      qs("#text-color").value = innerStyle.color
       // font weight
       qs("[data-weight]").setAttribute("data-weight", innerStyle.fontWeight)
       // text shadow
@@ -259,6 +261,9 @@ const onSettings = event => {
   if (key === "font-size") {
     // update font size
     sendMessage("update", { inner: { fontSize: parseInt(value) } })
+  } else if (key === "text-color") {
+    // update color
+    sendMessage("update", { inner: { color: value } })
   } else if (key === "font-weight") {
     // update input
     qs("[data-weight]").setAttribute("data-weight", value)
