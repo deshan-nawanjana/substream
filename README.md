@@ -7,7 +7,7 @@ Enhance Your Streaming Experience with Custom Subtitles! With this extension, yo
 ## Key Features
 
 - Load subtitles into online streaming platforms such as Netflix, Prime Video, and YouTube.
-- Adjust font style, size, shadow, background color, and caption alignments.
+- Adjust font style, size, shadow, color, and caption alignments.
 - Adjust subtitle timing using the easy synchronization tool.
 
 ## Assets and Resources Used
